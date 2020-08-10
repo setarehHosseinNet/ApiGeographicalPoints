@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="Models\DbContext.cs" />
+		<None Include="Models\DbGeographicalPoints.cs" />
+		<None Include="Models\Persen.cs" />
+		<Compile Include="WeatherForecast.fs" />
+		<Compile Include="Controllers/WeatherForecastController.fs" />
+		<Compile Include="Startup.fs" />
+		<Compile Include="Program.fs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Accounting.DataLayer\Accounting.DataLayer.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Update="FSharp.Core" Version="4.7.2" />
+	</ItemGroup>
+
+</Project>
