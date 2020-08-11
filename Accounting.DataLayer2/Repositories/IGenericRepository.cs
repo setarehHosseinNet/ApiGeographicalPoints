@@ -11,15 +11,15 @@ namespace Accounting.DataLayer2.Repositories
     {
         IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> where = null);
       
-        TEntity GetById(int id);
+       Task< TEntity> GetById(int id);
 
-        void Create(TEntity entity);
+        Task<bool> Create(TEntity entity);
 
-        void Update(int id, TEntity entity);
-      
+        Task<bool> Update(int id, TEntity entity);
 
-        void Delete(int id);
-        void Delet(TEntity entity);
+
+        Task<bool> Delete(int id);
+        Task<bool> Delet(TEntity entity);
         
     }
 

@@ -7,6 +7,7 @@ using Accounting.DataLayer2.Models;
 using System.Security.Cryptography;
 using Microsoft.EntityFrameworkCore.Internal;
 using NHibernate.Util;
+using System.Threading.Tasks;
 
 namespace Accounting.Business2
 {
@@ -38,18 +39,18 @@ namespace Accounting.Business2
             }
 
         }
-        public int Login(string _email, string _password)
+        public async Task<int> Login(string _email, string _password)
         {
             using (UnitOfWork db = new UnitOfWork())
             {
              
-                if (db.FindPersen.FindAccount(_email, _password) == 0)
+                if (await db.FindPersen.FindAccount(_email, _password) == 0)
                 {
                     return 0;
                 }
                 else
                 {
-                  return  db.FindPersen.FindAccount(_email, _password);
+                  return await  db.FindPersen.FindAccount(_email, _password);
                 }
             }
         }

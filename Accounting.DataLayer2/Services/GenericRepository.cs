@@ -5,9 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using Accounting.DataLayer2.Models;
 using Accounting.DataLayer2.Repositories;
-
-using System.Linq.Dynamic.Core;
-
+using System.Threading.Tasks;
 
 namespace Accounting.DataLayer.Services
 {
@@ -20,24 +18,54 @@ namespace Accounting.DataLayer.Services
             _db = new ContextDB();
             _dbSet = _db.Set<TEntity>();
         }
-        public virtual void Create(TEntity entity)
+        public virtual async Task<bool> Create(TEntity entity)
         {
-            _dbSet.Add(entity);
-        }
-
-        public virtual void Delete(int id)
-        {
-            var entity = GetById(id);
-            Delet(entity);
-        }
-        public virtual void Delet(TEntity entity)
-        {
-            if (_db.Entry(entity).State == EntityState.Detached)
+            try
             {
-                _dbSet.Attach(entity);
+                _dbSet.Add(entity);
+                return true;
             }
+            catch (Exception)
+            {
 
-            _dbSet.Remove(entity);
+                return false;
+            }
+           
+            
+        }
+
+        public virtual async Task<bool> Delete(int id)
+        {
+            try
+            {
+                var entity =await GetById(id);
+                await Delet(entity);
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+           
+        }
+        public virtual async Task<bool> Delet(TEntity entity)
+        {
+            try
+            {
+                if (_db.Entry(entity).State == EntityState.Detached)
+                {
+                     _dbSet.Attach(entity);
+                }
+
+                _dbSet.Remove(entity);
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
         public virtual IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> where = null)
         {
@@ -50,15 +78,24 @@ namespace Accounting.DataLayer.Services
             return (IQueryable<TEntity>)query.ToList();
         }
 
-        public virtual TEntity GetById(int id)
+        public virtual async Task<TEntity>  GetById(int id)
         {
-            return _dbSet.Find(id);
+            return await _dbSet.FindAsync(id);
         }
 
-        public virtual void Update(int id, TEntity entity)
+        public virtual async Task<bool> Update(int id, TEntity entity)
         {
-            _dbSet.Attach(entity);
-            _db.Entry(entity).State = EntityState.Modified;
+            try
+            {
+                _dbSet.Attach(entity);
+                _db.Entry(entity).State = EntityState.Modified;
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
 

@@ -3,9 +3,9 @@ using Accounting.DataLayer.Services;
 using Accounting.DataLayer2.Models;
 using Accounting.DataLayer2.Repositories;
 using Accounting.DataLayer2.Services;
-using Castle.Windsor.Diagnostics;
-using System;
 
+using System;
+using System.Collections.Generic;
 
 namespace Accounting.DataLayer2.ContextRepositories
 {
@@ -60,8 +60,7 @@ namespace Accounting.DataLayer2.ContextRepositories
             }
         }
 
-
-
+    
 
         private GenericRepository<DbGeographicalPoints> _dbGeographicalPoints;
 

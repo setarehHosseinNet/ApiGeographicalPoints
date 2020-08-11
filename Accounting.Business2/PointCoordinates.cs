@@ -36,8 +36,8 @@ namespace Accounting.Business2
         {
             using (UnitOfWork db=new UnitOfWork())
             {
-               
-                return db.PersonnelHistory(Idperson);
+
+                return db.PersonnelHistory.History(Idperson);
             }
         }
     }

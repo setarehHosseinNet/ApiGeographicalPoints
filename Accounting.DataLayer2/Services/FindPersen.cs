@@ -3,10 +3,10 @@ using Accounting.DataLayer2.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq.Dynamic.Core;
+
 
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace Accounting.DataLayer2.Services
 {
@@ -18,26 +18,28 @@ namespace Accounting.DataLayer2.Services
         {
             db =new ContextDB();
         }
-        public int FindAccount(string User, string password)
+        public async Task<int> FindAccount(string User, string password)
         {
-            var id= (db.Persen.Where(c => c.Email.Contains(User) || c.Name.Contains(User) && c.Password.Contains(password)).Any()) ? db.Persen.Single(c => c.Email.Contains(User) || c.Name.Contains(User) && c.Password.Contains(password)).ID : 0;
+            var id=await (db.Persen.Where(c => c.Email.Contains(User) || c.Name.Contains(User) && c.Password.Contains(password)).AnyAsync()) ? db.Persen.Single(c => c.Email.Contains(User) || c.Name.Contains(User) && c.Password.Contains(password)).ID : 0;
             return id;
 
         }
 
-        public int FindEmail(string Email)
+        public async Task<int> FindEmail(string Email)
         {
-            return (db.Persen.Where(c => c.Email.Contains(Email)).Any()) ? db.Persen.Single(c => c.Email.Contains(Email)).ID : 0;
+            return await (db.Persen.Where(c => c.Email.Contains(Email)).AnyAsync()) ? db.Persen.Single(c => c.Email.Contains(Email)).ID : 0;
         }
 
-        public int LengthPersen()
+        public async Task<int> LengthPersen()
         {
-            return db.Persen.Count();
+            return await db.Persen.CountAsync();
         }
 
-        int ISearchPersen.FindPersen(string Persen)
+      
+
+      public async  Task<int> FindPersenLog(string Persen)
         {
-            return (db.Persen.Where(c => c.Name.Contains(Persen)).Any()) ? db.Persen.Single(c => c.Name.Contains(Persen)).ID : 0;
+            return await(db.Persen.Where(c => c.Name.Contains(Persen)).AnyAsync()) ? db.Persen.Single(c => c.Name.Contains(Persen)).ID : 0;
         }
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Accounting.DataLayer2.Services
 {
@@ -16,10 +17,11 @@ namespace Accounting.DataLayer2.Services
         {
             db = new ContextDB();
         }
+        
+
         public IEnumerable<DbGeographicalPoints> History(int persen)
         {
-            var _persen = db.Persen.Find(persen);
-            return db.DbGeographicalPoints.Where(c => c.Persen == _persen);
+            return db.DbGeographicalPoints.Include(c => c.Persen).Where(c => c.Persen.ID == persen);
         }
     }
 }
