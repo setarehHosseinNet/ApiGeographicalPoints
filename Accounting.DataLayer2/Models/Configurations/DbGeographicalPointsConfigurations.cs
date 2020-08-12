@@ -11,10 +11,13 @@ namespace Accounting.DataLayer2.Models.Configurations
 
         public void Configure(EntityTypeBuilder<DbGeographicalPoints> builder)
         {
-            
+
             builder.HasKey(s => s.ID);
-            
-              
+            builder.Property(s => s.ID).UseSqlServerIdentityColumn()
+                .IsRequired();
+
+           
+
         }
 
     }

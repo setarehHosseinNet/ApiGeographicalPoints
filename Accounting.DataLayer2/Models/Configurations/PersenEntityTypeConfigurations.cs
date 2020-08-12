@@ -11,6 +11,9 @@ namespace Accounting.DataLayer2.Models.Configurations
         public void Configure(EntityTypeBuilder<Persen> builder)
         {
             builder.HasKey(s => s.ID);
+            builder.Property(c => c.ID)
+                .UseSqlServerIdentityColumn()
+                .IsRequired();
             builder.Property(c => c.Name)
                 .IsRequired()
                 .HasColumnType("string")
@@ -26,9 +29,11 @@ namespace Accounting.DataLayer2.Models.Configurations
                 .HasMaxLength(20)
                 .IsRequired()
                 ;
-            builder.HasMany(g => g.DbGeographicalPoints)
-                .WithOne(s => s.Persen)
-                .HasForeignKey(s => s.ID);
+            builder.HasMany(c => c.DbGeographicalPoints)
+                .WithOne(c => c.Persen)
+                .HasForeignKey(c => c.JPersen);
+                
+
         }
     }
 }

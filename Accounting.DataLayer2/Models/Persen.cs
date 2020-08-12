@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Accounting.DataLayer2.Models
 {
     public class Persen
     {
-       
-    
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        //public Persen()
+        //{
+        //    this.DbGeographicalPoints = new HashSet<DbGeographicalPoints>();
+           
+        //}
+        //[ForeignKey("DbGeographicalPoints")]
         public int ID { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [StringLength(50, MinimumLength = 3,
@@ -24,7 +30,7 @@ namespace Accounting.DataLayer2.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-    
+        
         public ICollection<DbGeographicalPoints> DbGeographicalPoints { get; set; }
     }
 }

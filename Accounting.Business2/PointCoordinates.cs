@@ -5,12 +5,13 @@ using System.Text;
 using System.Device.Location;
 using Accounting.DataLayer2.ContextRepositories;
 using Accounting.DataLayer2.Models;
+using System.Threading.Tasks;
 
 namespace Accounting.Business2
 {
     public class PointCoordinates
     {
-        public double CalculateTheDistance(double Lat1, double Lon1, double Lat2, double Lon2,int IdPersen)
+        public async Task<double> CalculateTheDistance(double Lat1, double Lon1, double Lat2, double Lon2,int IdPersen)
         {
             var sCoord = new System.Device.Location.GeoCoordinate(Lat1, Lon1);
             var eCoord = new System.Device.Location.GeoCoordinate(Lat2, Lon2);
@@ -23,11 +24,11 @@ namespace Accounting.Business2
                 Lat2=Lat2,
                 Lon2=Lon2,
                 Gpoint=calc,
-                Persen=db.Persen.GetById(IdPersen)
+                JPersen=IdPersen
                 };
 
-                db.DbGeographicalPoints.Create(newPoint);
-                db.save();
+              await  db.DbGeographicalPoints.Create(newPoint);
+                  db.save();
                 db.Dispose();
             }
             return calc;
