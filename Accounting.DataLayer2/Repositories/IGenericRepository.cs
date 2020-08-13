@@ -9,18 +9,19 @@ namespace Accounting.DataLayer2.Repositories
 {
     public interface IGenericRepository<TEntity>
     {
-        IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> where = null);
+        IEnumerable<TEntity> GetAll();
       
        Task< TEntity> GetById(int id);
 
         Task<bool> Create(TEntity entity);
 
-        Task<bool> Update(int id, TEntity entity);
+        Task<TEntity> Update(int id, TEntity entity);
 
 
-        Task<bool> Delete(int id);
-        Task<bool> Delet(TEntity entity);
-        
+        Task<TEntity> Delete(int id);
+        Task<TEntity> Delet(TEntity entity);
+        Task save();
+        Task<bool> ExistsID(int id);
     }
 
 }

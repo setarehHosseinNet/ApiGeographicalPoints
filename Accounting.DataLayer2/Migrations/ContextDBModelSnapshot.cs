@@ -53,14 +53,9 @@ namespace Accounting.DataLayer2.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(200)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR(80)")
-                        .HasMaxLength(80);
+                    b.Property<string>("Name");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(20);
+                    b.Property<string>("Password");
 
                     b.HasKey("ID");
 

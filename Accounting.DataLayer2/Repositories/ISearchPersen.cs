@@ -11,7 +11,7 @@ namespace Accounting.DataLayer2.Repositories
     {
         Task<int> FindPersenLog(string Persen);
         Task<int> FindEmail(string Email);
-        Task<int> FindAccount(string User, string password);
+        Task<string> FindAccount(string User, string password);
         Task<int> LengthPersen();
     }
 }

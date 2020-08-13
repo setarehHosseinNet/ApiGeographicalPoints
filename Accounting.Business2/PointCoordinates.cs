@@ -33,6 +33,9 @@ namespace Accounting.Business2
             }
             return calc;
         }
+
+      
+
         public IEnumerable<DbGeographicalPoints> PersonnelActivityHistory(int Idperson)
         {
             using (UnitOfWork db=new UnitOfWork())

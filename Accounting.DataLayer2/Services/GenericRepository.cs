@@ -6,6 +6,7 @@ using System.Linq.Expressions;
 using Accounting.DataLayer2.Models;
 using Accounting.DataLayer2.Repositories;
 using System.Threading.Tasks;
+using NHibernate.Mapping;
 
 namespace Accounting.DataLayer.Services
 {
@@ -34,48 +35,31 @@ namespace Accounting.DataLayer.Services
             
         }
 
-        public virtual async Task<bool> Delete(int id)
+        public virtual async Task<TEntity> Delete(int id)
         {
-            try
-            {
+          
                 var entity =await GetById(id);
                 await Delet(entity);
-                return true;
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
+                return entity;
+          
            
         }
-        public virtual async Task<bool> Delet(TEntity entity)
+        public virtual async Task<TEntity> Delet(TEntity entity)
         {
-            try
-            {
-                if (_db.Entry(entity).State == EntityState.Detached)
+            if (_db.Entry(entity).State == EntityState.Detached)
                 {
                      _dbSet.Attach(entity);
                 }
 
                 _dbSet.Remove(entity);
-                return true;
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
+                return entity;
+            
         }
-        public virtual IQueryable<TEntity> GetAll(Expression<Func<TEntity, bool>> where = null)
+        public virtual IEnumerable<TEntity> GetAll()
         {
-            IQueryable<TEntity> query = _dbSet;
-            if (where != null)
-            {
-                query = query.Where(where);
-            }
-
-            return (IQueryable<TEntity>)query.ToList();
+            IEnumerable<TEntity> query = _dbSet;
+          
+            return (IEnumerable<TEntity>)query.ToList();
         }
 
         public virtual async Task<TEntity>  GetById(int id)
@@ -83,24 +67,29 @@ namespace Accounting.DataLayer.Services
             return await _dbSet.FindAsync(id);
         }
 
-        public virtual async Task<bool> Update(int id, TEntity entity)
+        public virtual async Task<TEntity> Update(int id, TEntity entity)
         {
-            try
-            {
+          
                 _dbSet.Attach(entity);
                 _db.Entry(entity).State = EntityState.Modified;
-                return true;
-            }
-            catch (Exception)
-            {
-
-                return false;
-            }
+                return entity;
+           
         }
 
+        public async Task save()
+        {
+          await  _db.SaveChangesAsync();
+        }
 
-
-
-
+        public async Task<bool> ExistsID(int id)
+        {
+            var res = await _dbSet.FindAsync(id);
+            if (res == null)
+            {
+                return false;
+            }
+            else
+                return true;
+        }
     }
 }

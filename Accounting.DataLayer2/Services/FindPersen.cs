@@ -18,9 +18,9 @@ namespace Accounting.DataLayer2.Services
         {
             db =new ContextDB();
         }
-        public async Task<int> FindAccount(string User, string password)
+        public async Task<string> FindAccount(string User, string password)
         {
-            var id=await (db.Persen.Where(c => c.Email.Contains(User) || c.Name.Contains(User) && c.Password.Contains(password)).AnyAsync()) ? db.Persen.Single(c => c.Email.Contains(User) || c.Name.Contains(User) && c.Password.Contains(password)).ID : 0;
+            var id=await (db.Persen.Where(c => c.Email.Contains(User) || c.Name.Contains(User) && c.Password.Contains(password)).AnyAsync()) ? db.Persen.Single(c => c.Email.Contains(User) || c.Name.Contains(User) && c.Password.Contains(password)).Name : "null";
             return id;
 
         }

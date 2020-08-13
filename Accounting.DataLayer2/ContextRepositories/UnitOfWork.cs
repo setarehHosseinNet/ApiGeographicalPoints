@@ -6,6 +6,7 @@ using Accounting.DataLayer2.Services;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Accounting.DataLayer2.ContextRepositories
 {
@@ -14,7 +15,7 @@ namespace Accounting.DataLayer2.ContextRepositories
         ContextDB db = new ContextDB();
 
 
-       
+        
         private GenericRepository<Persen> _Persen;
 
         public GenericRepository<Persen> Persen
@@ -78,9 +79,9 @@ namespace Accounting.DataLayer2.ContextRepositories
         }
 
    
-        public void save()
+        public async Task save()
         {
-            db.SaveChanges();
+           await db.SaveChangesAsync();
         }
         public void Dispose()
         {

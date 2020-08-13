@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Accounting.Views2;
+using Accounting.Business2;
+using Accounting.DataLayer2.Models;
+using Microsoft.AspNetCore.Authorization;
+
 namespace ApiGeographicalPoints4.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
     public class ValuesController : ControllerBase
     {
         // GET api/values
         [HttpGet]
-        public string Get()
+        public IEnumerable<DbGeographicalPoints> Get()
         {
-            AccountingLogin MenuLog = new AccountingLogin();
-            return MenuLog.Menu();
+            PointCoordinates point = new PointCoordinates();
+            return point.PersonnelActivityHistory(1);
         }
 
         // GET api/values/5

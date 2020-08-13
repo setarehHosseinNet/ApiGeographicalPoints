@@ -11,10 +11,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Accounting.Views2\Accounting.Views2.csproj" />
+    <ProjectReference Include="..\Accounting.Business2\Accounting.Business2.csproj" />
+    <ProjectReference Include="..\Accounting.DataLayer2\Accounting.DataLayer2.csproj" />
   </ItemGroup>
 
 </Project>
